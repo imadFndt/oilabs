@@ -12,7 +12,7 @@ import tornadofx.add
 fun EventTarget.drawLab1() {
     lab1Section("Согласно варианту")
     lab1Section("α = 10", alpha = 10.0)
-    lab1Section("Пределы интегрирования (-10; 10)", abLimit = -8 to 8)
+    lab1Section("Пределы интегрирования (-10; 10)", abLimit = -8.0 to 8.0)
     lab1Section("m = n = 50", m = 70, n = 70)
 
     add(boldText("Исходная функция"))

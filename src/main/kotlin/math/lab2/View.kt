@@ -11,7 +11,7 @@ import tornadofx.add
 fun EventTarget.lab2Section(
     title: String,
 ) {
-    val points = libFFT()
+    val points = MyFFT.execute()
     add(boldText(title))
     add(
         chartview(

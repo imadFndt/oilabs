@@ -11,8 +11,8 @@ import tornadofx.add
 
 fun EventTarget.lab1Section(
     title: String,
-    abLimit: Limit = -5 to 5,
-    pqLimit: Limit = -10 to 10,
+    abLimit: Limit = -5.0 to 5.0,
+    pqLimit: Limit = -10.0 to 10.0,
     alpha: Double = 1.0,
     n: Int = 1000,
     m: Int = 1000
