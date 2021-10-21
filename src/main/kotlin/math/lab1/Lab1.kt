@@ -1,3 +1,4 @@
+import math.shared.asComplex
 import org.apache.commons.math3.complex.Complex
 import kotlin.math.absoluteValue
 
@@ -57,6 +58,3 @@ fun fl(abLimit: Limit, ksi: Double, alpha: Double, discreteCount: Int): Complex 
     }
     return result
 }
-
-fun Double.asComplex() = Complex(this)
-fun Int.asComplex() = Complex(this.toDouble())
