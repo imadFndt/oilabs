@@ -13,12 +13,17 @@ repositories {
     maven {
         url = URI("https://www.jitpack.io")
     }
+    maven {
+        url = URI("https://oss.sonatype.org/content/repositories/snapshots")
+    }
 }
 
 dependencies {
     implementation("org.apache.commons:commons-math3:3.0")
     implementation("com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT")
     implementation("no.tornado:tornadofx:1.7.20")
+
+    implementation("com.tambapps.fft4j:fft4j:1.0-SNAPSHOT")
 }
 
 tasks.test {

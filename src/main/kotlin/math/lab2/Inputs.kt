@@ -5,7 +5,7 @@ import kotlin.math.pow
 
 object InputsOneDimensional {
 
-    fun beam(x: Double) = exp(x.pow(2))
+    fun beam(x: Double) = exp(-x.pow(2))
     fun my(x: Double) = 1 / (1 + x.pow(2))
 }
 
