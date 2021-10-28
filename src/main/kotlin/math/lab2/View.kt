@@ -8,10 +8,12 @@ import math.charts.boldText
 import math.charts.chartview
 import tornadofx.add
 
-fun EventTarget.lab2Section(
+fun EventTarget.lab2Section1d(
     title: String,
+    fft: FFT,
+    input: (Double) -> Double
 ) {
-    val points = MyFFT.execute()
+    val points = fft.execute(inputFun = input)
     add(boldText(title))
     add(
         chartview(

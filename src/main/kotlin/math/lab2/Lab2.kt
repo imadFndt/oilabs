@@ -32,7 +32,6 @@ object LibFFT : FFT {
             .fillZeros(M)
             .swapHalves()
             .libFourier()
-            .libFourier()
             .map { it.multiply(step) }
             .swapHalves()
             .cutMiddle(N)
@@ -50,7 +49,7 @@ object MyFFT : FFT {
         val xRange = (-a..a).linSpace(M)
         val uRange = (-b..b).linSpace(N)
 
-        val step = 2 * a / N
+        val step = 2 * a / M
 
         return uRange.map { ui ->
 

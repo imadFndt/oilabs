@@ -6,7 +6,7 @@ typealias Limit = Pair<Double, Double>
 
 typealias Points = List<Pair<Complex, Complex>>
 
-private fun Limit.ksi(sectionNum: Int, count: Int): Pair<Double, Double> {
+fun Limit.ksi(sectionNum: Int, count: Int): Pair<Double, Double> {
     return h(count).let { length -> first + length * sectionNum to length }
 }
 

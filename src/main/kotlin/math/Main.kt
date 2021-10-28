@@ -1,16 +1,51 @@
 package math
 
+import com.google.gson.GsonBuilder
 import javafx.geometry.Pos
 import javafx.scene.Parent
+import ksi
 import math.charts.TextStyle
-import math.lab2.InputsOneDimensional
-import math.lab2.funSection
-import math.lab2.lab2Section
+import math.lab2.*
+import math.lab2.model.FFTExport
 import math.shared.asComplex
-import math.shared.linSpace
 import tornadofx.*
+import java.io.File
+import java.io.FileOutputStream
+import kotlin.math.absoluteValue
 
 fun main() {
+    val my = fft2D(
+        InputsDoubleDimensional::my
+    )
+
+    val beam = fft2D(InputsDoubleDimensional::beam)
+
+    val gson = GsonBuilder()
+        .setPrettyPrinting()
+        .create()
+
+    val file = File("/Users/imadfndt/Desktop/3d-visualizer/src/result.json").apply {
+        createNewFile()
+    }
+
+    val export = FFTExport(
+        x = my.first,
+        y = my.first,
+        zAbs = my.second.map { list -> list.map { it.abs() } },
+        zPhi = my.second.map { list -> list.map { it.argument } },
+        gAbs = beam.second.map { list -> list.map { it.abs() } },
+        gPhi = beam.second.map { list -> list.map { it.argument } },
+    )
+
+    val exported = gson.toJson(export)
+    FileOutputStream(file).use {
+        it.writer().use { writer ->
+            writer.write(exported)
+            writer.flush()
+        }
+    }
+
+
     launch<ChartViewApp>()
 }
 
@@ -24,13 +59,26 @@ class ChartsView : View("Charts") {
                 alignment = Pos.CENTER
             }
 
-            lab2Section("Библиотека")
+            lab2Section1d("Библиотека", LibFFT, InputsOneDimensional::my)
 
-            funSection("Хуйня))))") {
+            lab2Section1d("Классика", MyFFT, InputsOneDimensional::my)
 
-                (-5.0..5.0).linSpace(200) { it }
-                    .map { it.asComplex() to InputsOneDimensional.beam(it).asComplex() }
+            val fX = { x: Double ->
+                x.absoluteValue.asComplex()
+                    .multiply(Math.PI)
+                    .multiply(-2)
+                    .exp()
+                    .multiply(Math.PI)
             }
+
+            funSection("Аналитически") {
+                val n = 1000
+                (0 until n).map {
+                    val (x, _) = (-5.0 to 5.0).ksi(it, n)
+                    x.asComplex() to fX(x)
+                }
+            }
+
         }
     }
 }

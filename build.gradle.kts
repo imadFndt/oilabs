@@ -24,12 +24,14 @@ dependencies {
     implementation("no.tornado:tornadofx:1.7.20")
 
     implementation("com.tambapps.fft4j:fft4j:1.0-SNAPSHOT")
+
+    implementation("com.google.code.gson:gson:2.8.8")
 }
 
 tasks.test {
     useJUnit()
 }
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
