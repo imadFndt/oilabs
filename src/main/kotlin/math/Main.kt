@@ -5,6 +5,7 @@ import javafx.geometry.Pos
 import javafx.scene.Parent
 import ksi
 import math.charts.TextStyle
+import math.lab1.lab1Section
 import math.lab2.*
 import math.lab2.model.FFTExport
 import math.shared.asComplex
@@ -54,6 +55,8 @@ class ChartViewApp : App(ChartsView::class, TextStyle::class)
 class ChartsView : View("Charts") {
     override val root: Parent = scrollpane {
         vbox(spacing = 40) {
+
+            lab1Section("пизда")
 
             style {
                 alignment = Pos.CENTER
