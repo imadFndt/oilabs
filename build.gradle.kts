@@ -19,7 +19,8 @@ repositories {
 }
 
 dependencies {
-    implementation("org.apache.commons:commons-math3:3.0")
+    implementation("org.apache.commons:commons-math3:3.6")
+    implementation("com.github.wendykierp:JTransforms:3.1:with-dependencies")
     implementation("com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT")
     implementation("no.tornado:tornadofx:1.7.20")
 

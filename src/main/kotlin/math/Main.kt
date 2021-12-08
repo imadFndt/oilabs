@@ -45,9 +45,6 @@ fun main() {
             writer.flush()
         }
     }
-
-
-    launch<ChartViewApp>()
 }
 
 class ChartViewApp : App(ChartsView::class, TextStyle::class)

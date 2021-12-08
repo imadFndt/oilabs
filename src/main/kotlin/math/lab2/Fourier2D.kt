@@ -48,11 +48,11 @@ fun fft2D(
     return (-b..b).linSpace(N) to result
 }
 
-private fun MutableList<MutableList<Complex>>.replaceColumn(i: Int, baseFFT: List<Complex>) {
+fun MutableList<MutableList<Complex>>.replaceColumn(i: Int, baseFFT: List<Complex>) {
     (0 until size).forEach { j -> this[j][i] = baseFFT[j] }
 }
 
-private fun <E> List<List<E>>.column(i: Int) = (0 until size).map { j -> this[j][i] }
+fun <E> List<List<E>>.column(i: Int) = (0 until size).map { j -> this[j][i] }
 
 private fun List<Complex>.baseFFT(M: Int, N: Int, step: Double) = fillZeros(M)
     .swapHalves()

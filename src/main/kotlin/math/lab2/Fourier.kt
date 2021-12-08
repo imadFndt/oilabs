@@ -6,11 +6,12 @@ import org.apache.commons.math3.transform.DftNormalization
 import org.apache.commons.math3.transform.FastFourierTransformer
 import org.apache.commons.math3.transform.TransformType
 
-fun List<Complex>.fillZeros(M: Int): List<Complex> {
+fun List<Complex>.fillZeros(M: Int, paddingEnabled: Boolean = false): List<Complex> {
 
     fun zeros() = List((M - size) / 2) { 0.0.asComplex() }
 
-    return zeros() + this + zeros()
+    val paddedList = if (paddingEnabled) listOf(Complex.ZERO) else listOf()
+    return paddedList + zeros() + this + zeros()
 }
 
 fun <T> List<T>.swapHalves(): List<T> = subList(size / 2, size) + subList(0, size / 2)
@@ -24,5 +25,7 @@ fun List<Complex>.libFourier(): List<Complex> {
 
 fun <T> List<T>.cutMiddle(N: Int): List<T> {
     val middle = size / 2
-    return subList((middle - N / 2), (middle + N / 2))
+    val start = middle - N / 2
+    val end = middle + N / 2 + if (N % 2 == 0) 0 else 1
+    return subList(start, end)
 }
