@@ -11,6 +11,7 @@ fun myFun(r: Double, phi: Double): Complex {
 
     return BesselJ.value(PARAM_P, PARAM_ALPHA * r).asComplex()
         .multiply(
-            Complex.I.multiply(PARAM_P * phi).exp()
+            Complex.I.multiply(PARAM_P * phi)
+                .exp()
         )
 }

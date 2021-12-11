@@ -46,8 +46,9 @@ fun main() {
         phi = heatMap.map2D { it.argument },
     )
 
+    val hankelN = n
     val hankelList = xList.map { x ->
-        hankel(x, 0.0, rMax, n) { myFun(it, 0.0) }
+        hankel(x, 0.0, rMax, hankelN) { myFun(it, 0.0) }
     }
 
     result += Chart(
@@ -58,7 +59,7 @@ fun main() {
         y_im = hankelList.map { it.argument }
     )
 
-    val hankelHeatMap = buildHeatMap(n, rMax, m) { x ->
+    val hankelHeatMap = buildHeatMap(hankelN, rMax, m) { x ->
         hankel(x, 0.0, rMax, n) { myFun(it, 0.0) }
     }
 
@@ -72,9 +73,10 @@ fun main() {
     )
 
 
-    val loweredR = rMax
-    val xHeatMapLower = createDoubleDimAxis(loweredR, n)
-    val fftList = fft(r = loweredR, N = n, m = m)
+    val loweredR = rMax// * 2
+    val fourierN = 300
+    val xHeatMapLower = createDoubleDimAxis(loweredR, fourierN)
+    val fftList = fft(r = loweredR, N = fourierN, m = m)
 
     result += Chart(
         type = ChartType.HEIGHT,
@@ -88,7 +90,11 @@ fun main() {
     result.print("/Users/imadfndt/Desktop/3d-vis-update/3d-visualizer/src/result.json")
 }
 
-fun buildHeatMap(n: Int, R: Double, m: Int, func: (Double) -> Complex): List<List<Complex>> {
+fun buildHeatMap(
+    n: Int,
+    R: Double, m: Int,
+    func: (Double) -> Complex
+): List<List<Complex>> {
 
     val source = (0.0..R).linSpace(n + 1)
         .map { func(it) }
@@ -115,9 +121,9 @@ fun hankel(
     val step = (right - left) / n
     val result = (0 until n).fold(Complex.ZERO) { acc, i ->
         val x = left + i * step
-        val res = func(p)
+        val res = func(x)
             .multiply(BesselJ.value(PARAM_P, 2 * PI * x * p))
-            .multiply(x)
+            .multiply(x * step)
         acc.add(res)
     }
 
@@ -125,7 +131,7 @@ fun hankel(
 }
 
 fun fft(
-    M: Int = 2.0.pow(15).toInt(),
+    M: Int = 2.0.pow(12).toInt(),
     r: Double,
     N: Int,
     m: Int
@@ -139,7 +145,7 @@ fun fft(
 fun Complex.vortex(j: Int, k: Int, n: Int, m: Int): Complex {
 
     val vortex = Complex.I
-        .multiply(-atan2(k - n, j - n))
+        .multiply(atan2(k - n, j - n))
         .multiply(m)
         .exp()
     return this.multiply(vortex)
